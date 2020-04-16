@@ -3,7 +3,7 @@
 
 # In[ ]:
 
-
+import tkinter
 import os
 import sys
 import random
@@ -12,8 +12,12 @@ import numpy as np
 import skimage.io
 import matplotlib
 import matplotlib.pyplot as plt
+# import cv2
+import time
+
 # Root directory of the project
 ROOT_DIR = os.path.abspath("../")
+from IPython import get_ipython
 
 # Import Mask RCNN
 sys.path.append(ROOT_DIR)  # To find local version of the library
@@ -25,7 +29,8 @@ sys.path.append(os.path.join(ROOT_DIR, "samples/coco/"))  # To find local versio
 
 import coco
 
-# get_ipython().run_line_magic('matplotlib', 'inline')
+get_ipython().run_line_magic('matplotlib', 'auto')
+#%matplotlib inline
 
 # Directory to save logs and trained model
 MODEL_DIR = os.path.join(ROOT_DIR, "logs")
@@ -126,15 +131,31 @@ class_names = ['BG', 'person', 'bicycle', 'car', 'motorcycle', 'airplane',
 file_names = next(os.walk(IMAGE_DIR))[2]
 image = skimage.io.imread(os.path.join(IMAGE_DIR, random.choice(file_names)))
 
-# Run detection
+
+
+# # Run detection
 results = model.detect([image], verbose=1)
-
-# Visualize results
+#
+# # Visualize results
 r = results[0]
-visualize.display_instances(image, r['rois'], r['masks'], r['class_ids'], 
-                            class_names, r['scores'])
+visualize.display_instances(image, r['rois'], r['masks'], r['class_ids'],
+                             class_names, r['scores'])
 
-
+#
+# cap = cv2.VideoCapture(0)
+# while(1):
+#     ret, frame = cap.read()
+#     start = time.process_time()
+#     results = model.detect([frame], verbose=1)
+#     # cv2.imshow("capture", frame)
+#     r = results[0]
+#     visualize.display_instances(frame, r['rois'], r['masks'], r['class_ids'], class_names, r['scores'])
+#     end = time.process_time()
+#     print(end-start)
+#     if cv2.waitKey(1) & 0xFF == ord('q'):
+#         break
+# cap.release()
+# cv2.destroyAllWindows()
 # In[ ]:
 
 
