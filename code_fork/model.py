@@ -180,7 +180,7 @@ def resnet_graph(input_image, architecture, stage5=False, train_bn=True):
     C3 = x = identity_block(x, 3, [128, 128, 512], stage=3, block='d', train_bn=train_bn)
     # Stage 4
     x = conv_block(x, 3, [256, 256, 1024], stage=4, block='a', train_bn=train_bn)
-    block_count = {"resnet50":5, "resnet101":22}[architecture]
+    block_count = {"resnet50":5, "resnet101":22}[architecture] # 字典加索引
     for i in range(block_count):
         x = identity_block(x, 3, [256, 256, 1024], stage=4, block=chr(98 + i), train_bn=train_bn)
     C4 = x
