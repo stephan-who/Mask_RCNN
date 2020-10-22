@@ -273,8 +273,6 @@ for image_id in image_ids:
 
 # ## Create Model
 
-# In[ ]:
-
 
 # Create model in training mode
 model = modellib.MaskRCNN(mode="training", config=config,
